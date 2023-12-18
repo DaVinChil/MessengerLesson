@@ -33,6 +33,7 @@ class MainViewModel @Inject constructor(
 
     init {
         loadUser()
+        infiniteMessageLoading()
     }
 
     private fun loadUser() {
@@ -65,6 +66,24 @@ class MainViewModel @Inject constructor(
                 is Resource.Error -> {
                     // Error catching
                 }
+            }
+        }
+    }
+
+    private fun infiniteMessageLoading() {
+        viewModelScope.launch {
+            while (true) {
+                when (val response = messengerRepository.getMessages()) {
+                    is Resource.Success -> {
+                        if (_messages != response.value!!) {
+                            _messages = response.value
+                        }
+                    }
+                    is Resource.Error -> {
+                        // Error catching
+                    }
+                }
+                delay(2000L)
             }
         }
     }
