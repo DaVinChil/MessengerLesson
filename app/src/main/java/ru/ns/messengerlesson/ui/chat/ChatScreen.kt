@@ -1,5 +1,6 @@
 package ru.ns.messengerlesson.ui.chat
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.ns.messengerlesson.data.remote.Message
 import ru.ns.messengerlesson.data.remote.UserDto
+import java.text.SimpleDateFormat
 import java.util.Date
 
 @Composable
@@ -53,11 +55,14 @@ fun Message(modifier: Modifier = Modifier, message: Message) {
             Text(
                 modifier = Modifier,
                 fontSize = 10.sp,
-                text = message.date.toString()
+                text = formatDate(message.date)
             )
         }
     }
 }
+
+@SuppressLint("SimpleDateFormat")
+fun formatDate(date: Date): String = SimpleDateFormat("hh:mm").format(date)
 
 @Preview
 @Composable
