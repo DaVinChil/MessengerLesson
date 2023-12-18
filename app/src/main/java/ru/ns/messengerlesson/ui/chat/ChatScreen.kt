@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,22 @@ import ru.ns.messengerlesson.data.remote.Message
 import ru.ns.messengerlesson.data.remote.UserDto
 import java.text.SimpleDateFormat
 import java.util.Date
+
+@Composable
+fun ChatScreen(
+    messages: List<Message>,
+    onSendMessage: (String) -> Unit,
+    isMineMessage: (Message) -> Boolean
+) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        ChatContent(
+            modifier = Modifier.weight(1f),
+            messages = messages,
+            isMineMessage = isMineMessage
+        )
+        InputMessage(onSendMessage = onSendMessage)
+    }
+}
 
 @Composable
 fun ChatContent(
@@ -139,6 +156,35 @@ fun InputMessage(
 
 @SuppressLint("SimpleDateFormat")
 fun formatDate(date: Date): String = SimpleDateFormat("hh:mm").format(date)
+
+@Preview
+@Composable
+fun ChatScreenPreview() {
+    ChatScreen(
+        messages = listOf(
+            Message(
+                id = 1L,
+                sender = UserDto("Tom"),
+                message = "Hello!",
+                date = Date()
+            ),
+            Message(
+                id = 2L,
+                sender = UserDto("Tim"),
+                message = "Hi, how are you?",
+                date = Date()
+            ),
+            Message(
+                id = 3L,
+                sender = UserDto("Alex"),
+                message = "-_-",
+                date = Date()
+            )
+        ),
+        onSendMessage = {},
+        isMineMessage = { it.id == 2L }
+    )
+}
 
 @Preview
 @Composable
