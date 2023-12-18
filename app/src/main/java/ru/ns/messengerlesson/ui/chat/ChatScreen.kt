@@ -26,6 +26,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 @Composable
+fun ChatContent(
+    messages: List<Message>,
+    isMineMessage: (Message) -> Boolean,
+    modifier: Modifier = Modifier
+) {
+
+}
+
+@Composable
 fun Message(modifier: Modifier = Modifier, message: Message) {
     Column(
         modifier = modifier
@@ -63,6 +72,34 @@ fun Message(modifier: Modifier = Modifier, message: Message) {
 
 @SuppressLint("SimpleDateFormat")
 fun formatDate(date: Date): String = SimpleDateFormat("hh:mm").format(date)
+
+@Preview
+@Composable
+fun ChatContentPreview() {
+    ChatContent(
+        messages = listOf(
+            Message(
+                id = 1L,
+                sender = UserDto("Tom"),
+                message = "Hello!",
+                date = Date()
+            ),
+            Message(
+                id = 2L,
+                sender = UserDto("Tim"),
+                message = "Hi, how are you?",
+                date = Date()
+            ),
+            Message(
+                id = 3L,
+                sender = UserDto("Alex"),
+                message = "-_-",
+                date = Date()
+            )
+        ),
+        isMineMessage = { it.id == 2L }
+    )
+}
 
 @Preview
 @Composable
