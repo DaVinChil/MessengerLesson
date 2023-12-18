@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.ns.messengerlesson.ui.chat.ChatScreen
 import ru.ns.messengerlesson.ui.register.RegisterScreen
 import ru.ns.messengerlesson.ui.theme.MessengerLessonTheme
 
@@ -57,6 +58,13 @@ fun ChatApp() {
             when {
                 viewModel.isUserFetching -> LoadingPage()
                 viewModel.user == null -> RegisterScreen(onSubmitUsername = viewModel::saveUser)
+                else -> {
+                    ChatScreen(
+                        messages = viewModel.messages,
+                        onSendMessage = viewModel::sendMessage,
+                        isMineMessage = { it.sender.name == viewModel.user?.name }
+                    )
+                }
             }
         }
     }
