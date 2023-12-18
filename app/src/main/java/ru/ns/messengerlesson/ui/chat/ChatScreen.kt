@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -31,23 +32,30 @@ fun Message(modifier: Modifier = Modifier, message: Message) {
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
     ) {
         Text(
-            modifier = Modifier,
+            modifier = Modifier.align(Alignment.Start),
             fontSize = 13.sp,
             text = message.sender.name,
             color = Color(0xFF0EB355),
             fontWeight = FontWeight.Bold
         )
-        Text(
-            modifier = Modifier,
-            fontSize = 17.sp,
-            text = message.message
-        )
-        Spacer(modifier = Modifier.width(5.dp))
-        Text(
-            modifier = Modifier,
-            fontSize = 10.sp,
-            text = message.date.toString()
-        )
+        Spacer(modifier = Modifier.height(5.dp))
+        Row(
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            Text(
+                modifier = Modifier,
+                fontSize = 17.sp,
+                text = message.message
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                modifier = Modifier,
+                fontSize = 10.sp,
+                text = message.date.toString()
+            )
+        }
     }
 }
 
