@@ -4,12 +4,17 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imeNestedScroll
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +36,24 @@ fun ChatContent(
     isMineMessage: (Message) -> Boolean,
     modifier: Modifier = Modifier
 ) {
-
+    LazyColumn(
+        contentPadding = PaddingValues(10.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp)
+    ) {
+        items(
+            count = messages.size,
+            key = { messages[it].id }
+        ) {
+            val arrangement =
+                if (isMineMessage(messages[it])) Arrangement.End else Arrangement.Start
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = arrangement
+            ) {
+                Message(message = messages[it])
+            }
+        }
+    }
 }
 
 @Composable
