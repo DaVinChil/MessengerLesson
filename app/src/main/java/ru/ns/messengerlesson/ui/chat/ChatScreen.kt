@@ -27,7 +27,7 @@ import java.util.Date
 fun Message(modifier: Modifier = Modifier, message: Message) {
     Column(
         modifier = modifier
-            .widthIn(min = 50.dp, max = 200.dp)
+            .width(200.dp)
             .background(color = Color(0x5019D8E1), shape = RoundedCornerShape(20.dp))
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
     ) {
@@ -45,7 +45,7 @@ fun Message(modifier: Modifier = Modifier, message: Message) {
             modifier = Modifier.align(Alignment.End)
         ) {
             Text(
-                modifier = Modifier,
+                modifier = Modifier.weight(1f),
                 fontSize = 17.sp,
                 text = message.message
             )
