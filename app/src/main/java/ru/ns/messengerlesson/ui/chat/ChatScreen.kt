@@ -1,7 +1,14 @@
 package ru.ns.messengerlesson.ui.chat
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,24 +24,31 @@ import java.util.Date
 
 @Composable
 fun Message(modifier: Modifier = Modifier, message: Message) {
-    Text(
-        modifier = Modifier,
-        fontSize = 13.sp,
-        text = message.sender.name,
-        color = Color(0xFF0EB355),
-        fontWeight = FontWeight.Bold
-    )
-    Text(
-        modifier = Modifier,
-        fontSize = 17.sp,
-        text = message.message
-    )
-    Spacer(modifier = Modifier.width(5.dp))
-    Text(
-        modifier = Modifier,
-        fontSize = 10.sp,
-        text = message.date.toString()
-    )
+    Column(
+        modifier = modifier
+            .widthIn(min = 50.dp, max = 200.dp)
+            .background(color = Color(0x5019D8E1), shape = RoundedCornerShape(20.dp))
+            .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
+    ) {
+        Text(
+            modifier = Modifier,
+            fontSize = 13.sp,
+            text = message.sender.name,
+            color = Color(0xFF0EB355),
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            modifier = Modifier,
+            fontSize = 17.sp,
+            text = message.message
+        )
+        Spacer(modifier = Modifier.width(5.dp))
+        Text(
+            modifier = Modifier,
+            fontSize = 10.sp,
+            text = message.date.toString()
+        )
+    }
 }
 
 @Preview
@@ -44,7 +58,7 @@ fun MessagePreview() {
         message = Message(
             id = 1L,
             sender = UserDto("Tom"),
-            message = "Hello",
+            message = "Hello everyone, my name is kotlin.",
             date = Date()
         )
     )
